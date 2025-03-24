@@ -4,6 +4,9 @@
 
 <section class="bg-light">
     <div class="container py-5">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>    
+        @endif
         <div class="row text-center py-3">
             <div class="col-lg-6 m-auto">
                 <h1 class="h1">Liste des Produits</h1>
