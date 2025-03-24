@@ -22,8 +22,9 @@ class categorieController extends Controller
         return view('create');
     }
 
-    public function c(Request $request)
+    public function store(Request $request)
     {
+        // dd('ok');
         $request->validate([
             'nom' => 'required|regex:/^[A-Za-zÀ-ÿ\s]+$/|min:2',
         ], [
@@ -38,7 +39,7 @@ class categorieController extends Controller
         categorie::create([
             'nom_categorie' => $request->nom,
         ]);
-        return redirect('/index')->with('success', 'Catégorie ajoutée pr e!');
+        return redirect('categories')->with('success', 'Catégorie ajoutée pr e!');
     }
 
     public function edit($id)

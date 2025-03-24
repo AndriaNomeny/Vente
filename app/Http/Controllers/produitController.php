@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\produitRequest;
+use Illuminate\Http\RedirectResponse;
 use App\Models\categorie;
 use App\Models\produit;
 use App\Models\User;
@@ -14,7 +15,6 @@ class produitController extends Controller
 {
     public function a()
     {
-        //bobotadsfsd
         // User::create([ssdssd
         //     'name' => 'Nomeny',
         //     'email'=> 'Nomeny@gmail.com',

@@ -43,7 +43,7 @@
         @endif --}}
         
         <!-- Formulaire pour créer une catégorie -->
-        <form action="{{ url('/index') }}" method="POST">
+        <form action="{{ route('categorie.create') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nom">Nom de la catégorie</label>
