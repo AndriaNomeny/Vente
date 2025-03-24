@@ -14,7 +14,7 @@ class produitController extends Controller
 {
     public function a()
     {
-        // User::create([
+        // User::create([ssdssd
         //     'name' => 'Nomeny',
         //     'email'=> 'Nomeny@gmail.com',
         //     'password' => Hash::make('0000')
