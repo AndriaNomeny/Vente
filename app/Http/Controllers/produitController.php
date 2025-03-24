@@ -14,7 +14,7 @@ class produitController extends Controller
 {
     public function a()
     {
-        //bobota
+        //bobotadsfsd
         // User::create([ssdssd
         //     'name' => 'Nomeny',
         //     'email'=> 'Nomeny@gmail.com',
