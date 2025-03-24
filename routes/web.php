@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\categorieController;
-use App\Http\Controllers\produitController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\UserController;
 use App\Models\categorie;
 use App\Models\produit;
@@ -26,20 +26,20 @@ Route::get('/', function () {
 // Routes protégées par l'authentification
 //Route::middleware(['auth'])->group(function () {
     // Catégorie
-    Route::get('/categories', [CategorieController::class, 'a'])->name('index.categorie');
-    Route::get('/index/create', [CategorieController::class, 'b']);
-    Route::post('/index', [CategorieController::class, 'store'])->name('categorie.create');
-    Route::get('/index/edit/{id}', [CategorieController::class, 'edit'])->name('categorie.edit');
-    Route::post('/index/update/{id}', [CategorieController::class, 'update'])->name('categorie.update');
-    Route::get('/index/delete/{id}', [CategorieController::class, 'delete'])->name('categorie.delete');
+    Route::get('/categories', [CategorieController::class, 'index'])->name('categorie.index');
+    Route::get('/categorie/create', [CategorieController::class, 'create'])->name('categorie.create');
+    Route::post('/categorie', [CategorieController::class, 'store'])->name('categorie.store');
+    Route::get('/categorie/edit/{id}', [CategorieController::class, 'edit'])->name('categorie.edit');
+    Route::post('/categorie/update/{id}', [CategorieController::class, 'update'])->name('categorie.update');
+    Route::get('/categorie/delete/{id}', [CategorieController::class, 'delete'])->name('categorie.delete');
 
     // Produit
-    Route::get('/produits', [ProduitController::class, 'a'])->name('index.produit');
-    Route::get('/indexx/cree', [ProduitController::class, 'b'])->name('produit.creat');
-    Route::put('/indexx', [ProduitController::class, 'c'])->name('produit.store');
-    Route::get('/indexx/edit/{id}', [ProduitController::class, 'edit'])->name('produit.edit');
-    Route::post('/indexx/update/{id}', [ProduitController::class, 'update'])->name('produit.update');
-    Route::delete('/indexx/delete/{id}', [ProduitController::class, 'delete'])->name('produit.delete');
+    Route::get('/produits', [ProduitController::class, 'index'])->name('produit.index');
+    Route::get('/produit/cree', [ProduitController::class, 'create'])->name('produit.create');
+    Route::put('/produit', [ProduitController::class, 'store'])->name('produit.store');
+    Route::get('/produit/edit/{id}', [ProduitController::class, 'edit'])->name('produit.edit');
+    Route::post('/produit/update/{id}', [ProduitController::class, 'update'])->name('produit.update');
+    Route::delete('/produit/delete/{id}', [ProduitController::class, 'delete'])->name('produit.delete');
 //});
 
 //login

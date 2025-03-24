@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class categorieRequest extends FormRequest
+class CategorieRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,15 @@ class categorieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|min:2'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nom.required' => 'Le nommmmm de la catégorie est obligatoire.',
+            'nom.min' => 'Le nom doit contenir au moins 2 caractères.',
         ];
     }
 }

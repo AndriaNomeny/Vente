@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="text-end mb-4">
-            <a href="{{ route('produit.creat') }}" class="btn btn-success btn-lg px-4">Ajouter un produit</a>
+            <a href="{{ route('produit.create') }}" class="btn btn-success btn-lg px-4">Ajouter un produit</a>
         </div>
         <div class="row">
             @foreach ($produits as $produit)

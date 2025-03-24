@@ -17,7 +17,7 @@
         @endif --}}
         
         <!-- Formulaire pour créer une catégorie -->
-        <form action="{{ route('categorie.create') }}" method="POST">
+        <form action="{{ route('categorie.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nom">Nom de la catégorie</label>

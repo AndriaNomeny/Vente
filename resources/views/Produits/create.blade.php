@@ -23,7 +23,7 @@
                                     'value' => old('nom', $produit->nom_produit),
                                     'class' => 'form-control form-control-lg mx-auto'
                                 ])
-                                @error('nom_produit')
+                                @error('nom')
                                     <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>

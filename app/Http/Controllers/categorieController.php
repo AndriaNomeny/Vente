@@ -2,44 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategorieRequest;
 use App\Models\categorie;
 use Illuminate\Http\Request;
 
-class categorieController extends Controller
+class CategorieController extends Controller
 {
-    public function a()
+    public function index()
     {
         
         // alaina any am catégories
         $categories = categorie::all();
 
         // alefa any vue
-        return view('index', compact('categories'));
-    }
-
-    public function b()
-    {
-        return view('create');
-    }
-
-    public function store(Request $request)
-    {
-        // dd('ok');
-        $request->validate([
-            'nom' => 'required|regex:/^[A-Za-zÀ-ÿ\s]+$/|min:2',
-        ], [
-            'nom.required' => 'Le nommmmm de la catégorie est obligatoire.',
-            'nom.string' => 'Le nom doit être une chaîne de caractères.',
-            'nom.min' => 'Le nom doit contenir au moins 2 caractères.',
-            'nom.regex' => 'Le nom doit contenir uniquement des lettres et des espaces.',
+        return view('Categories.index', [
+            'categories' => $categories
         ]);
-        
-        
-        
+    }
+
+    public function create()
+    {
+        return view('Categories.create');
+    }
+
+    public function store(CategorieRequest $request)
+    {
         categorie::create([
             'nom_categorie' => $request->nom,
         ]);
-        return redirect('categories')->with('success', 'Catégorie ajoutée pr e!');
+        return to_route('categorie.index')->with('success', 'Catégorie ajoutée pr e!');
     }
 
     public function edit($id)
@@ -47,32 +38,22 @@ class categorieController extends Controller
         // maka anlecatégorie en fonction any ID
         $categorie = categorie::findOrFail($id);
 
-        return view('edit', compact('categorie'));
+        return view('Categories.edit', [
+            'categorie' => $categorie
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CategorieRequest $request, $id)
     {
-        $request->validate([
-            'nom' => 'required|regex:/^[A-Za-zÀ-ÿ\s]+$/|min:2',
-    ], [
-            'nom.required' => 'Le nommmmm de la catégorie est obligatoire.',
-            'nom.string' => 'Le nom doit être une chaîne de caractères.',
-            'nom.min' => 'Le nom doit contenir au moins 2 caractères.',
-            'nom.regex' => 'Le nom doit contenir uniquement des lettres et des espaces.',
-    ]);
         // Récupérer la catégorie à mettre à jour
         $categorie = categorie::findOrFail($id);
-    //  $categorie = categorie::find($id);
-
-    // if (!$categorie) {
-    //     return redirect('/index')->with('error', 'Catégorie non trouvée.');
-    // }
+        //  $categorie = categorie::find($id);
 
         $categorie->update([
             'nom_categorie' => $request->nom, // Mise à jour du champ dans la base de données
         ]);
         
-    return redirect('/index')->with('success', 'Catégorie mise à jour pr oa!');
+    return to_route('categorie.index')->with('success', 'Catégorie mise à jour pr oa!');
     }
 
     public function delete($id)
@@ -80,6 +61,6 @@ class categorieController extends Controller
         $categorie = categorie::findOrFail($id);
         $categorie->delete();
 
-        return redirect('/index')->with('success', 'Efa oe mety pr lesy io an!');
+        return to_route('categorie.index')->with('success', 'Efa oe mety pr lesy io an!');
     }
 }

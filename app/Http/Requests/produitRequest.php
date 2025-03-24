@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class produitRequest extends FormRequest
+class ProduitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,27 +23,21 @@ class produitRequest extends FormRequest
     {
         // dd($this->request->all());
         return [
-            'nom' => 'required|regex:/^[A-Za-zÀ-ÿ\s]+$/|min:2',
+            'nom' => 'required|min:2',
             'categorie_id' => 'required|exists:categories,id',
             'description' => 'required|string|max:500',
-            'image' => 'required|image', // max 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation de l'image
         ];
     }
 
     public function messages()
     {
         return [
-            'nom.required' => 'Le nom de la catégorie est obligatoire.',
-            'nom.string' => 'Le nom doit être une chaîne de caractères.',
-            'nom.min' => 'Le nom doit contenir au moins 2 caractères.',
-            'nom.regex' => 'Le nom doit contenir uniquement des lettres et des espaces.',
-            'categorie_id.required' => 'Veuillez sélectionner une catégorie.',
-            'categorie_id.exists' => 'La catégorie sélectionnée n\'existe pas.',
-            'description.string' => 'La description doit être une chaîne de caractères.',
-            // 'description.min' => 'La description doit contenir au moins 10 caractères.',
+            'nom.required' => 'Le nom du produit est obligatoire.',
             'description.max' => 'La description ne peut pas dépasser 500 caractères.',
+            'description.required' => 'La description doit etre obligatoire',
             'image.image' => 'Le fichier doit être une image.',
-            'image.mimes' => 'L\'image doit être au format jpeg, png, jpg ou gif.',
+            'image.mimes' => 'L\'image doit être de type jpeg, png, jpg ou gif.',
             'image.max' => 'L\'image ne doit pas dépasser 2 Mo.',
         ];
     }
