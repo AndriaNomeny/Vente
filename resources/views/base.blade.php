@@ -47,12 +47,6 @@ https://templatemo.com/tm-559-zay-shop
                         <li class="nav-item">
                             <a class="nav-link" href="{{route("categorie.index")}}">Categories</a>
                         </li>
-                        <li class="nav-item">
-                            <form action="{{route('logout')}}" method="POST">
-                                @csrf
-                                <button class="nav-link" type="submit">Se déconnecter</button>
-                            </form>
-                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
@@ -68,6 +62,10 @@ https://templatemo.com/tm-559-zay-shop
             </div>
 
         </div>
+            <form action="{{route('logout')}}" method="POST">
+                @csrf
+                <button type="submit">Se déconnecter</button>
+            </form>
     </nav>
     @yield("contenue")
     <!-- Close Header -->
