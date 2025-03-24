@@ -18,18 +18,19 @@
     <p style="color: green;">{{ session('success') }}</p>
 @endif
 
-<form action="{{route('doLogin')}}" method="POST">
+<form action="{{route('register')}}" method="POST">
     @csrf
+    <label>Nom :</label>
+    <input type="text" name="name" required>
+
     <label>Email :</label>
     <input type="email" name="email" required>
 
     <label>Mot de passe :</label>
     <input type="password" name="password" required>
 
-    <button type="submit">Se connecter</button>
+    <button type="submit">S'inscrir</button>
 </form>
-
-<p>Pas encore inscrit ? <a href="{{ route('showRegisterForm') }}">Créer un compte</a></p>
 
 </body>
 </html>

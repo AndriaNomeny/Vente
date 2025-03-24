@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 // Routes protégées par l'authentification
-//Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     // Catégorie
     Route::get('/categories', [CategorieController::class, 'index'])->name('categorie.index');
     Route::get('/categorie/create', [CategorieController::class, 'create'])->name('categorie.create');
@@ -40,16 +40,17 @@ Route::get('/', function () {
     Route::get('/produit/edit/{id}', [ProduitController::class, 'edit'])->name('produit.edit');
     Route::post('/produit/update/{id}', [ProduitController::class, 'update'])->name('produit.update');
     Route::delete('/produit/delete/{id}', [ProduitController::class, 'delete'])->name('produit.delete');
-//});
 
-//login
-//Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
-//Route::post('/login', [AuthController::class, 'doLogin']);
+    // Utilisateur
+    Route::get('/utilisateur/edit/{id}', [UserController::class, 'edit'])->name('utilisateur.edit');
+    Route::post('/utilisateur/update/{id}', [UserController::class, 'update'])->name('utilisateur.update');
+    Route::delete('/utilisateur/delete/{id}', [ProduitController::class, 'delete'])->name('utilisateur.delete');
+});
 
 //auth
-Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
-Route::post('/loginn', [UserController::class, 'login'])->name('seConnecter');
-Route::get('/register', [UserController::class, 'showRegisterForm']);
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/logout', [UserController::class, 'logout'])->name('deconnexion');
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('showLoginForm');
+Route::post('/doLogin', [UserController::class, 'doLogin'])->name('doLogin');
+Route::get('/register/create', [UserController::class, 'showRegisterForm'])->name('showRegisterForm');
+Route::post('/register', [UserController::class, 'register'])->name('register');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 

@@ -16,15 +16,16 @@ class UserController extends Controller
     }
 
 
-    public function login(UserRequest $request)
+    public function doLogin(UserRequest $request)
     {
+        // dd('ok');
         // Récupère uniquement l'email et le mot de passe depuis la requête validée
         $credentials = $request->only(['email', 'password']);
 
         // Tente d'authentifier l'utilisateur avec les identifiants fournis
         if (Auth::attempt($credentials)) {
             // Si l'authentification réussit, redirige vers le tableau de bord avec un message de succès
-            return redirect('/indexx')->with('success', 'Connexion réussie !');
+            return to_route('produit.index')->with('success', 'Connexion réussie !');
         }
 
         // Si l'authentification échoue, redirige vers la page précédente avec un message d'erreur
@@ -37,13 +38,9 @@ class UserController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed'
-        ]);
+        $request->validated();
 
         User::create([
             'name' => $request->name,
@@ -51,12 +48,12 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('/login')->with('success', 'Inscription réussie ! Connectez-vous.');
+        return to_route('showLoginForm')->with('success', 'Inscription réussie ! Connectez-vous.');
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('/login')->with('success', 'Déconnexion réussie.');
+        return to_route('showLoginForm')->with('success', 'Déconnexion réussie.');
     }
 }
