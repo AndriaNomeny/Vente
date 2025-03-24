@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function index() {
+        return view('Utilisateurs.index');
+    }
     public function showLoginForm()
     {
         return view('auth.login');

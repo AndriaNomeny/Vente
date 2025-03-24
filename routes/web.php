@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/produit/delete/{id}', [ProduitController::class, 'delete'])->name('produit.delete');
 
     // Utilisateur
+    Route::get('/utilisateurs', [UserController::class, 'index'])->name('utilisateur.index');
     Route::get('/utilisateur/edit/{id}', [UserController::class, 'edit'])->name('utilisateur.edit');
     Route::post('/utilisateur/update/{id}', [UserController::class, 'update'])->name('utilisateur.update');
     Route::delete('/utilisateur/delete/{id}', [ProduitController::class, 'delete'])->name('utilisateur.delete');
