@@ -26,6 +26,9 @@ class ProduitRequest extends FormRequest
             'nom' => 'required|min:2',
             'categorie_id' => 'required|exists:categories,id',
             'description' => 'required|string|max:500',
+            'prix' => 'required|numeric|min:0.01', // Prix doit être un nombre positif
+            'stock' => 'nullable|numeric|min:0', // Stock doit être un nombre positif
+            'stockEnleve' => 'nullable|numeric|min:0', // Stock doit être un nombre positif
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation de l'image
         ];
     }
@@ -36,6 +39,8 @@ class ProduitRequest extends FormRequest
             'nom.required' => 'Le nom du produit est obligatoire.',
             'description.max' => 'La description ne peut pas dépasser 500 caractères.',
             'description.required' => 'La description doit etre obligatoire',
+            'categorie_id.required' => 'Une categorie doit etre selectionnée',
+            'prix.required' => 'Un doit etre obligatoire',
             'image.image' => 'Le fichier doit être une image.',
             'image.mimes' => 'L\'image doit être de type jpeg, png, jpg ou gif.',
             'image.max' => 'L\'image ne doit pas dépasser 2 Mo.',

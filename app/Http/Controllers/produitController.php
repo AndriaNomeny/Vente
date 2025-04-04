@@ -33,13 +33,13 @@ class ProduitController extends Controller
     {
         $produit = new produit(); // Assurez-vous que le nom de la classe commence par une majuscule
         // Récupérer toutes les catégories
-        $categories = Categorie::pluck('nom_categorie', 'id'); // Assurez-vous que 'Categorie' commence par une majuscule et que la colonne est correcte
+        $categories = categorie::pluck('nom_categorie', 'id'); // Assurez-vous que 'Categorie' commence par une majuscule et que la colonne est correcte
     
         // Afficher la vue avec les catégories
-        return view('Produits.create', [
+        return view('Produits.formProduit', [
             'categories' => $categories,
             'produit' => $produit
-        ]);  // Remplacez 'Produits.create' par le chemin correct de votre vue
+        ]);
     }
     
     public function store(ProduitRequest $request)
@@ -56,6 +56,8 @@ class ProduitController extends Controller
             'nom_produit' => $request->nom,
             'categorie_id' => $request->categorie_id, // Ajout de la catégorie
             'description' => $request->description,
+            'prix' => $request->prix,
+            'stock' => $request->stock,
             'image' => $imagePath, // Enregistrer l'image dans la base de données
         ]);
         return to_route('produit.index')->with('success', 'Produit ajoutée pr e!');
@@ -65,9 +67,9 @@ class ProduitController extends Controller
     {
         // maka anlecatégorie en fonction any ID
         $produit = produit::findOrFail($id);
-        $categories = categorie::all();
+        $categories = categorie::pluck('nom_categorie', 'id'); // Assurez-vous que 'Categorie' commence par une majuscule et que la colonne est correcte
 
-        return view('Produits.edit', [
+        return view('Produits.formProduit', [
             'produit' => $produit,
             'categories' => $categories
         ]);
@@ -75,16 +77,29 @@ class ProduitController extends Controller
 
     public function update(ProduitRequest $request, $id)
     {
+        $data = $request->validated();
 
-        // dd($request);
         // Récupérer le produit existant
         $produit = Produit::findOrFail($id);
-        // dd($produit);
+        // dd($data);
+        if($data['stockEnleve'] && $data['stock'] == 0)
+        {
+            // Mise à jour des informations
+            $produit->nom_produit = $request->nom;
+            $produit->categorie_id = $request->categorie_id;
+            $produit->description = $request->description;
+            $produit->prix = $request->prix;
+            $produit->stock = $produit->stock - $request->stockEnleve;
+        }else{  
+            // Mise à jour des informations
+            $produit->nom_produit = $request->nom;
+            $produit->categorie_id = $request->categorie_id;
+            $produit->description = $request->description;
+            $produit->prix = $request->prix;
+            $produit->stock = $request->stock + $produit->stock;
+        }
 
-        // Mise à jour des informations
-        $produit->nom_produit = $request->nom;
-        $produit->categorie_id = $request->categorie_id;
-        $produit->description = $request->description;
+        // dd($produit->stock);
 
         // Vérification et gestion de l'image
         if ($request->hasFile('image')) {

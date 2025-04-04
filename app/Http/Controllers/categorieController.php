@@ -22,7 +22,10 @@ class CategorieController extends Controller
 
     public function create()
     {
-        return view('Categories.create');
+        $categorie = new categorie();
+        return view('Categories.formCategorie', [
+            'categorie' => $categorie
+        ]);
     }
 
     public function store(CategorieRequest $request)
@@ -38,7 +41,7 @@ class CategorieController extends Controller
         // maka anlecatégorie en fonction any ID
         $categorie = categorie::findOrFail($id);
 
-        return view('Categories.edit', [
+        return view('Categories.formCategorie', [
             'categorie' => $categorie
         ]);
     }

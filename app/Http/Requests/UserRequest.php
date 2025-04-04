@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -7,35 +6,44 @@ use Illuminate\Foundation\Http\FormRequest;
 class UserRequest extends FormRequest
 {
     /**
-     * Détermine si l'utilisateur est autorisé à faire cette requête.
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return true; // Important : doit être `true` pour activer la validation
+        // Vous pouvez définir des règles de sécurité ici.
+        return true;  // Autorise toutes les requêtes pour le moment
     }
 
     /**
-     * Règles de validation appliquées à la requête.
+     * Règles de validation à appliquer à la requête.
+     *
+     * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        // Validation pour la connexion
-        if ($this->routeIs('login')) {
-            return [
-                'email'    => 'required|email',
-                'password' => 'required',
-            ];
-        }
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $this->route('id'),
+            'password' => 'nullable|min:8|confirmed', // La confirmation est nécessaire pour le champ 'password'
+        ];
+    }
 
-        // Validation pour l'inscription
-        if ($this->routeIs('register')) {
-            return [
-                'name'     => 'required|string|max:255',
-                'email'    => 'required|email|unique:users',
-                'password' => 'required|min:6',
-            ];
-        }
-
-        return [];
+    /**
+     * Messages de validation personnalisés.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Le nom est obligatoire.',
+            'email.required' => 'L\'email est obligatoire.',
+            'email.email' => 'Veuillez entrer un email valide.',
+            'email.unique' => 'Cet email est déjà utilisé.',
+            'password.min' => 'Le mot de passe doit comporter au moins 8 caractères.',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+        ];
     }
 }

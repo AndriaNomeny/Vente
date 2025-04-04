@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('produits', function (Blueprint $table) {
             $table->id();
             $table->string('nom_produit');
+            $table->decimal('prix', 10, 2);
+            $table->boolean('vendu')->default(false);
             $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade'); // Ajout de la clé étrangère
             $table->timestamps();
         });
